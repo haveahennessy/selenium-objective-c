@@ -31,9 +31,9 @@
 	[self clickAndReturnError:&error];
 }
 
--(void) clickAndReturnError:(NSError**)error
+-(BOOL) clickAndReturnError:(NSError**)error
 {
-	[self.jsonWireClient postClickElement:self session:self.sessionId error:error];
+	return [self.jsonWireClient postClickElement:self session:self.sessionId error:error] != nil;
 }
 
 -(void) submit
@@ -42,9 +42,9 @@
 	[self submitAndReturnError:&error];
 }
 
--(void) submitAndReturnError:(NSError**)error
+-(BOOL) submitAndReturnError:(NSError**)error
 {
-	[self.jsonWireClient postSubmitElement:self session:self.sessionId error:error];
+	return [self.jsonWireClient postSubmitElement:self session:self.sessionId error:error] != nil;
 }
 
 -(NSString*) text
@@ -64,7 +64,7 @@
 	[self sendKeys:keyString error:&error];
 }
 
--(void) sendKeys:(NSString*)keyString error:(NSError**)error
+-(NSDictionary *) sendKeys:(NSString*)keyString error:(NSError**)error
 {
 	unichar keys[keyString.length+1];
 	for(int i=0; i < keyString.length; i++)
@@ -90,9 +90,9 @@
 	[self clearAndReturnError:&error];
 }
 
--(void) clearAndReturnError:(NSError**)error
+-(BOOL) clearAndReturnError:(NSError**)error
 {
-	[self.jsonWireClient postClearElement:self session:self.sessionId error:error];
+	return [self.jsonWireClient postClearElement:self session:self.sessionId error:error] != nil;
 }
 
 -(BOOL) isSelected

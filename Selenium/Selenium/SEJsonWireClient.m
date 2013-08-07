@@ -93,35 +93,35 @@
 }
 
 // DELETE /session/:sessionId
--(void) deleteSessionWithSession:(NSString*)sessionId error:(NSError**)error
+-(BOOL) deleteSessionWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@", self.httpCommandExecutor, sessionId];
-	[SEUtility performDeleteRequestToUrl:urlString error:error];
+	return [SEUtility performDeleteRequestToUrl:urlString error:error] ? YES : NO;
 }
 
 // /session/:sessionId/timeouts
--(void) postTimeout:(NSInteger)timeoutInMilliseconds forType:(SETimeoutType)type session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postTimeout:(NSInteger)timeoutInMilliseconds forType:(SETimeoutType)type session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/timeouts", self.httpCommandExecutor, sessionId];
     NSString *timeoutType = [SEEnums stringForTimeoutType:type];
 	NSDictionary *postDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timeoutType, @"type", [NSString stringWithFormat:@"%d", ((int)timeoutInMilliseconds)], @"ms", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
 }
 
 // POST /session/:sessionId/timeouts/async_script
--(void) postAsyncScriptWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postAsyncScriptWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/timeouts/async_script", self.httpCommandExecutor, sessionId];
 	NSDictionary *postDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d", ((int)timeoutInMilliseconds)], @"ms", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
 }
 
 // POST /session/:sessionId/timeouts/implicit_wait
--(void) postImplicitWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postImplicitWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/timeouts/implicit_wait", self.httpCommandExecutor, sessionId];
 	NSDictionary *postDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d", ((int)timeoutInMilliseconds)], @"ms", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
 }
 
 // GET /session/:sessionId/window_handle
@@ -159,32 +159,32 @@
 }
 
 // POST /session/:sessionId/url
--(void) postURL:(NSURL*)url session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postURL:(NSURL*)url session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/url", self.httpCommandExecutor, sessionId];
 	NSDictionary *postDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[url absoluteString], @"url", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postDictionary error:error];
 }
 
 // POST /session/:sessionId/forward
--(void) postForwardWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postForwardWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/forward", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/back
--(void) postBackWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postBackWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/back", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/refresh
--(void) postRefreshWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postRefreshWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/refresh", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/execute
@@ -260,22 +260,22 @@
 }
 
 // POST /session/:sessionId/ime/deactivate
--(void) postDeactivateInputMethodEngineWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postDeactivateInputMethodEngineWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/ime/deactivate", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/ime/activate
--(void) postActivateInputMethodEngine:(NSString*)engine session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postActivateInputMethodEngine:(NSString*)engine session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/ime/activate", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: engine, @"engine", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/frame
--(void) postSetFrame:(id)name session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSetFrame:(id)name session:(NSString*)sessionId error:(NSError**)error
 {
 	if ([name isKindOfClass:[SEWebElement class]])
 	{
@@ -283,30 +283,30 @@
 	}
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/frame", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: name, @"name", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/window
--(void) postSetWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSetWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/window", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: windowHandle, @"name", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // DELETE /session/:sessionId/window
--(void) deleteWindowWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteWindowWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/window", self.httpCommandExecutor, sessionId];
-	[SEUtility performDeleteRequestToUrl:urlString error:error];
+	return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 // POST /session/:sessionId/window/:windowHandle/size
--(void) postSetWindowSize:(NSSize)size window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSetWindowSize:(NSSize)size window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/window/%@/size", self.httpCommandExecutor, sessionId, windowHandle];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:(size.width/1)], @"width", [NSNumber numberWithInt:(size.height/1)], @"height", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // GET /session/:sessionId/window/:windowHandle/size
@@ -322,11 +322,11 @@
 }
 
 // POST /session/:sessionId/window/:windowHandle/position
--(void) postSetWindowPosition:(NSPoint)position window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSetWindowPosition:(NSPoint)position window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/window/%@/position", self.httpCommandExecutor, sessionId, windowHandle];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:(position.x / 1)], @"x", [NSNumber numberWithInt:(position.y/1)], @"y", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // GET /session/:sessionId/window/:windowHandle/position
@@ -342,10 +342,10 @@
 }
 
 // POST /session/:sessionId/window/:windowHandle/maximize
--(void) postMaximizeWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postMaximizeWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/window/%@/maximize", self.httpCommandExecutor, sessionId, windowHandle];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 
@@ -366,7 +366,7 @@
 }
 
 // POST /session/:sessionId/cookie
--(void) postCookie:(NSHTTPCookie*)cookie session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postCookie:(NSHTTPCookie*)cookie session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/cookie", self.httpCommandExecutor, sessionId];
 	NSMutableDictionary *cookieJson = [NSMutableDictionary new];
@@ -377,21 +377,21 @@
 	[cookieJson setObject:[NSNumber numberWithBool:cookie.isSecure] forKey:@"secure"];
 	[cookieJson setObject:[NSNumber numberWithDouble:[cookie.expiresDate timeIntervalSince1970]] forKey:@"expiry"];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys:cookieJson, @"cookie", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // DELETE /session/:sessionId/cookie
--(void) deleteCookiesWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteCookiesWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/cookie", self.httpCommandExecutor, sessionId];
-	[SEUtility performDeleteRequestToUrl:urlString error:error];
+	return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 // DELETE /session/:sessionId/cookie/:name
--(void) deleteCookie:(NSString*)cookieName session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteCookie:(NSString*)cookieName session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/cookie/%@", self.httpCommandExecutor, sessionId, cookieName];
-	[SEUtility performDeleteRequestToUrl:urlString error:error];
+	return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 // GET /session/:sessionId/source
@@ -484,17 +484,17 @@
 }
 
 // POST /session/:sessionId/element/:id/click
--(void) postClickElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postClickElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/element/%@/click", self.httpCommandExecutor, sessionId, element.opaqueId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/element/:id/submit
--(void) postSubmitElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSubmitElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/element/%@/submit", self.httpCommandExecutor, sessionId, element.opaqueId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+    return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // GET /session/:sessionId/element/:id/text
@@ -507,7 +507,7 @@
 }
 
 // POST /session/:sessionId/element/:id/value
--(void) postKeys:(unichar *)keys element:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postKeys:(unichar *)keys element:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/element/%@/value", self.httpCommandExecutor, sessionId, element.opaqueId];
 	NSMutableArray *keyArray = [NSMutableArray new];
@@ -516,11 +516,11 @@
 		[keyArray addObject:[NSString stringWithFormat:@"%C", keys[i]]];
 	}
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: keyArray, @"value", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/keys
--(void) postKeys:(unichar *)keys session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postKeys:(unichar *)keys session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/keys", self.httpCommandExecutor, sessionId];
 	NSMutableArray *keyArray = [NSMutableArray new];
@@ -529,7 +529,7 @@
 		[keyArray addObject:[NSString stringWithFormat:@"%C", keys[i]]];
 	}
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: keyArray, @"value", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // GET /session/:sessionId/element/:id/name
@@ -542,10 +542,10 @@
 }
 
 // POST /session/:sessionId/element/:id/clear
--(void) postClearElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postClearElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/element/%@/clear", self.httpCommandExecutor, sessionId, element.opaqueId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // GET /session/:sessionId/element/:id/selected
@@ -650,13 +650,13 @@
 }
 
 // POST /session/:sessionId/orientation
--(void) postOrientation:(SEScreenOrientation)orientation session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postOrientation:(SEScreenOrientation)orientation session:(NSString*)sessionId error:(NSError**)error
 {
 	if (orientation == SELENIUM_SCREEN_ORIENTATION_UNKOWN)
-		return;
+		return nil;
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/orientation", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys:(orientation == SELENIUM_SCREEN_ORIENTATION_LANDSCAPE) ? @"LANDSCAPE" : @"PORTRAIT" , @"orientation", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // GET /session/:sessionId/alert_text
@@ -669,29 +669,29 @@
 }
 
 // POST /session/:sessionId/alert_text
--(void) postAlertText:(NSString*)text session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postAlertText:(NSString*)text session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/alert_text", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: text, @"text", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/accept_alert
--(void) postAcceptAlertWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postAcceptAlertWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/accept_alert", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/dismiss_alert
--(void) postDismissAlertWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postDismissAlertWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/dismiss_alert", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/moveto
--(void) postMoveMouseToElement:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postMoveMouseToElement:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/move_to", self.httpCommandExecutor, sessionId];
 	NSMutableDictionary *postParams = [NSMutableDictionary new];
@@ -701,119 +701,119 @@
 	}
 	[postParams setObject:[NSNumber numberWithInteger:xOffset] forKey:@"xoffset"];
 	[postParams setObject:[NSNumber numberWithInteger:yOffset] forKey:@"yoffset"];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/click
--(void) postClickMouseButton:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postClickMouseButton:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/click", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[SEEnums intForMouseButton:button]] , @"button", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/buttondown
--(void) postMouseButtonDown:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postMouseButtonDown:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/buttondown", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[SEEnums intForMouseButton:button]] , @"button", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/buttonup
--(void) postMouseButtonUp:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postMouseButtonUp:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/buttonup", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[SEEnums intForMouseButton:button]] , @"button", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/doubleclick
--(void) postDoubleClickWithSession:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postDoubleClickWithSession:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/doubleclick", self.httpCommandExecutor, sessionId];
-	[SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:nil error:error];
 }
 
 // POST /session/:sessionId/touch/click
--(void) postTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/click", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: element.opaqueId, @"element", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/down
--(void) postFingerDownAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postFingerDownAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/down", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:(int)point.x] , @"x", [NSNumber numberWithInt:(int)point.y] , @"y", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/up
--(void) postFingerUpAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postFingerUpAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/up", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:(int)point.x] , @"x", [NSNumber numberWithInt:(int)point.y] , @"y", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/move
--(void) postMoveFingerTo:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postMoveFingerTo:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/move", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:(int)point.x] , @"x", [NSNumber numberWithInt:(int)point.y] , @"y", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/scroll
--(void) postStartScrollingAtParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postStartScrollingAtParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error
 {
 	    NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/scroll", self.httpCommandExecutor,sessionId];
         NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: element.opaqueId , @"element", [NSNumber numberWithInteger:xOffset] , @"xoffset", [NSNumber numberWithInteger:yOffset] , @"yoffset", nil];
-	    [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
+	    return [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/scroll
--(void) postScrollfromAnywhereOnTheScreenWithSession:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postScrollfromAnywhereOnTheScreenWithSession:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error
 {
 	    NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/touch/scroll", self.httpCommandExecutor, sessionId];
 	    NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:(int)point.x], @"x" ,[NSNumber numberWithInt:(int)point.y],@"y",nil];
-	  [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	  return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 
 // POST /session/:sessionId/touch/doubleclick
--(void) postDoubleTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postDoubleTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/doubleclick", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: element.opaqueId, @"element", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/longclick
--(void) postPressElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postPressElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error
 {
 	NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/longclick", self.httpCommandExecutor, sessionId];
 	NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: element.opaqueId, @"element", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/flick
--(void) postFlickFromParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset  speed:(NSInteger)speed session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postFlickFromParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset  speed:(NSInteger)speed session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/flick", self.httpCommandExecutor,sessionId];
     NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: element.opaqueId , @"element", [NSNumber numberWithInteger:xOffset] , @"xoffset", [NSNumber numberWithInteger:yOffset] , @"yoffset", [NSNumber numberWithInteger:speed] , @"speed",nil];
-    [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
+    return [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
 }
 
 // POST /session/:sessionId/touch/flick
--(void) postFlickFromAnywhere:(NSInteger)xSpeed ySpeed:(NSInteger)ySpeed session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postFlickFromAnywhere:(NSInteger)xSpeed ySpeed:(NSInteger)ySpeed session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/touch/flick", self.httpCommandExecutor,sessionId];
     NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInteger:xSpeed] , @"xSpeed", [NSNumber numberWithInteger:ySpeed] , @"ySpeed",nil];
-    [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
+    return [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
 }
 
 
@@ -827,11 +827,11 @@
 }
 
 // POST /session/:sessionId/location
--(void) postLocation:(SELocation*)location session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postLocation:(SELocation*)location session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString = [NSString stringWithFormat:@"%@/session/%@/location", self.httpCommandExecutor,sessionId];
     NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys: location, @"location", nil];
-    [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
+    return [SEUtility performPostRequestToUrl: urlString postParams:postParams error:error];
 }
 
 
@@ -852,33 +852,33 @@
 }
 
 //POST /session/:sessionId/local_storage
--(void) postSetLocalStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSetLocalStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/local_storage",self.httpCommandExecutor,sessionId];
     NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys:key, @"key",value, @"value", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
     
 }
 
 // DELETE /session/:sessionId/local_storage
--(void) deleteLocalStorage:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteLocalStorage:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/local_storage",self.httpCommandExecutor,sessionId];
-    [SEUtility performDeleteRequestToUrl:urlString error:error];
+    return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 // GET /session/:sessionId/local_storage/key/:key
--(void) getLocalStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) getLocalStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/local_storage/key/%@",self.httpCommandExecutor,sessionId,key];
-    [SEUtility performGetRequestToUrl:urlString error:error];
+    return [SEUtility performGetRequestToUrl:urlString error:error];
 }
 
 //DELETE /session/:sessionId/local_storage/key/:key
--(void) deleteLocalStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteLocalStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString=[NSString stringWithFormat:@"%@/session/%@/local_storage/key/%@",self.httpCommandExecutor,sessionId,key];
-    [SEUtility performDeleteRequestToUrl:urlString error:error];
+    return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 // GET /session/:sessionId/local_storage/size
@@ -907,33 +907,33 @@
 }
 
 //POST /session/:sessionId/session_storage
--(void) postSetStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) postSetStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/session_storage",self.httpCommandExecutor,sessionId];
     NSDictionary *postParams = [[NSDictionary alloc] initWithObjectsAndKeys:key, @"key",value, @"value", nil];
-	[SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
+	return [SEUtility performPostRequestToUrl:urlString postParams:postParams error:error];
 
 }
 
 // DELETE /session/:sessionId/session_storage
--(void) deleteStorage:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteStorage:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/session_storage",self.httpCommandExecutor,sessionId];
-    [SEUtility performDeleteRequestToUrl:urlString error:error];
+    return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 // GET /session/:sessionId/session_storage/key/:key
--(void) getStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) getStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString =[NSString stringWithFormat:@"%@/session/%@/session_storage/key/%@",self.httpCommandExecutor,sessionId,key];
-    [SEUtility performGetRequestToUrl:urlString error:error];
+    return [SEUtility performGetRequestToUrl:urlString error:error];
 }
 
 //DELETE /session/:sessionId/session_storage/key/:key
--(void) deleteStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
+-(NSDictionary *) deleteStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error
 {
     NSString *urlString=[NSString stringWithFormat:@"%@/session/%@/session_storage/key/%@",self.httpCommandExecutor,sessionId,key];
-    [SEUtility performDeleteRequestToUrl:urlString error:error];
+    return [SEUtility performDeleteRequestToUrl:urlString error:error];
 }
 
 

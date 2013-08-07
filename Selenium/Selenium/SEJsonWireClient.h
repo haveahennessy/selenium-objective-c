@@ -39,16 +39,16 @@
 -(SESession*) getSessionWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // DELETE /session/:sessionId
--(void) deleteSessionWithSession:(NSString*)sessionId error:(NSError**)error;
+-(BOOL) deleteSessionWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/timeouts
--(void) postTimeout:(NSInteger)timeoutInMilliseconds forType:(SETimeoutType)type session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postTimeout:(NSInteger)timeoutInMilliseconds forType:(SETimeoutType)type session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/timeouts/async_script
--(void) postAsyncScriptWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postAsyncScriptWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/timeouts/implicit_wait
--(void) postImplicitWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postImplicitWaitTimeout:(NSInteger)timeoutInMilliseconds session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/window_handle
 -(NSString*) getWindowHandleWithSession:(NSString*)sessionId error:(NSError**)error;
@@ -60,16 +60,16 @@
 -(NSURL*) getURLWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/url
--(void) postURL:(NSURL*)url session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postURL:(NSURL*)url session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/forward
--(void) postForwardWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postForwardWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/back
--(void) postBackWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postBackWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/refresh
--(void) postRefreshWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postRefreshWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/execute
 -(NSDictionary*) postExecuteScript:(NSString*)script arguments:(NSArray*)arguments session:(NSString*)sessionId error:(NSError**)error;
@@ -90,46 +90,46 @@
 -(BOOL) getInputMethodEngineIsActivatedWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/ime/deactivate
--(void) postDeactivateInputMethodEngineWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postDeactivateInputMethodEngineWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/ime/activate
--(void) postActivateInputMethodEngine:(NSString*)engine session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postActivateInputMethodEngine:(NSString*)engine session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/frame
--(void) postSetFrame:(id)name session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSetFrame:(id)name session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/window
--(void) postSetWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSetWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
 
 // DELETE /session/:sessionId/window
--(void) deleteWindowWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteWindowWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/window/:windowHandle/size
--(void) postSetWindowSize:(NSSize)size window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSetWindowSize:(NSSize)size window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/window/:windowHandle/size
 -(NSSize) getWindowSizeWithWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/window/:windowHandle/position
--(void) postSetWindowPosition:(NSPoint)position window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSetWindowPosition:(NSPoint)position window:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/window/:windowHandle/position
 -(NSPoint) getWindowPositionWithWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/window/:windowHandle/maximize
--(void) postMaximizeWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postMaximizeWindow:(NSString*)windowHandle session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/cookie
 -(NSArray*) getCookiesWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/cookie
--(void) postCookie:(NSHTTPCookie*)cookie session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postCookie:(NSHTTPCookie*)cookie session:(NSString*)sessionId error:(NSError**)error;
 
 // DELETE /session/:sessionId/cookie
--(void) deleteCookiesWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteCookiesWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // DELETE /session/:sessionId/cookie/:name
--(void) deleteCookie:(NSString*)cookieName session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteCookie:(NSString*)cookieName session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/source
 -(NSString*) getSourceWithSession:(NSString*)sessionId error:(NSError**)error;
@@ -156,25 +156,25 @@
 -(NSArray*) postElementsFromElement:(SEWebElement*)element by:(SEBy*)locator session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/element/:id/click
--(void) postClickElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postClickElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/element/:id/submit
--(void) postSubmitElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSubmitElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/element/:id/text
 -(NSString*) getElementText:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // /session/:sessionId/element/:id/value
--(void) postKeys:(unichar *)keys element:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postKeys:(unichar *)keys element:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/keys
--(void) postKeys:(unichar *)keys session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postKeys:(unichar *)keys session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/element/:id/name
 -(NSString*) getElementName:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/element/:id/clear
--(void) postClearElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postClearElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/element/:id/selected
 -(BOOL) getElementIsSelected:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
@@ -207,85 +207,85 @@
 -(SEScreenOrientation) getOrientationWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/orientation
--(void) postOrientation:(SEScreenOrientation)orientation session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postOrientation:(SEScreenOrientation)orientation session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/alert_text
 -(NSString*) getAlertTextWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/alert_text
--(void) postAlertText:(NSString*)text session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postAlertText:(NSString*)text session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/accept_alert
--(void) postAcceptAlertWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postAcceptAlertWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/dismiss_alert
--(void) postDismissAlertWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postDismissAlertWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/moveto
--(void) postMoveMouseToElement:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postMoveMouseToElement:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/click
--(void) postClickMouseButton:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postClickMouseButton:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/buttondown
--(void) postMouseButtonDown:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postMouseButtonDown:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/buttonup
--(void) postMouseButtonUp:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postMouseButtonUp:(SEMouseButton)button session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/doubleclick
--(void) postDoubleClickWithSession:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postDoubleClickWithSession:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/click
--(void) postTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/down
--(void) postFingerDownAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postFingerDownAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/up
--(void) postFingerUpAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postFingerUpAt:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/move
--(void) postMoveFingerTo:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postMoveFingerTo:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/scroll
--(void) postStartScrollingAtParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postStartScrollingAtParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/scroll
--(void) postScrollfromAnywhereOnTheScreenWithSession:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postScrollfromAnywhereOnTheScreenWithSession:(NSPoint)point session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/doubleclick
--(void) postDoubleTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postDoubleTapElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/longclick
--(void) postPressElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postPressElement:(SEWebElement*)element session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/flick
--(void) postFlickFromParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset  speed:(NSInteger)speed session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postFlickFromParticularLocation:(SEWebElement*)element xOffset:(NSInteger)xOffset yOffset:(NSInteger)yOffset  speed:(NSInteger)speed session:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/touch/flick
--(void) postFlickFromAnywhere:(NSInteger)xSpeed ySpeed:(NSInteger)ySpeed session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postFlickFromAnywhere:(NSInteger)xSpeed ySpeed:(NSInteger)ySpeed session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/location
 -(SELocation*) getLocationAndReturnError:(NSString*)sessionId error:(NSError**)error;
 
 // POST /session/:sessionId/location
--(void) postLocation:(SELocation*)location session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postLocation:(SELocation*)location session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/local_storage
 -(NSArray*) getAllLocalStorageKeys:(NSString*)sessionId error:(NSError**)error;
 
 //POST /session/:sessionId/local_storage
--(void) postSetLocalStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSetLocalStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error;
 
 // DELETE /session/:sessionId/local_storage
--(void) deleteLocalStorage:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteLocalStorage:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/local_storage/key/:key
--(void) getLocalStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) getLocalStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
 
 //DELETE /session/:sessionId/local_storage/key/:key
--(void) deleteLocalStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteLocalStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/local_storage/size
 -(NSInteger) getLocalStorageSize:(NSString*)sessionId error:(NSError**)error;
@@ -294,16 +294,16 @@
 -(NSArray*) getAllStorageKeys:(NSString*)sessionId error:(NSError**)error;
 
 //POST /session/:sessionId/session_storage
--(void) postSetStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) postSetStorageItemForKey:(NSString*)key value:(NSString*)value session:(NSString*)sessionId error:(NSError**)error;
 
 // DELETE /session/:sessionId/session_storage
--(void) deleteStorage:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteStorage:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/session_storage/key/:key
--(void) getStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) getStorageItemForKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
 
 //DELETE /session/:sessionId/session_storage/key/:key
--(void) deleteStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
+-(NSDictionary *) deleteStorageItemForGivenKey:(NSString*)key session:(NSString*)sessionId error:(NSError**)error;
 
 // GET /session/:sessionId/session_storage/size
 -(NSInteger) getStorageSize:(NSString*) sessionId error:(NSError**) error;

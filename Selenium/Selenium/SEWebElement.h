@@ -21,17 +21,17 @@
 -(id) initWithOpaqueId:(NSString*)opaqueId jsonWireClient:(SEJsonWireClient*)jsonWireClient session:(NSString*)sessionId;
 
 -(void) click;
--(void) clickAndReturnError:(NSError**)error;
+-(BOOL) clickAndReturnError:(NSError**)error;
 -(void) submit;
--(void) submitAndReturnError:(NSError**)error;
+-(BOOL) submitAndReturnError:(NSError**)error;
 -(NSString*) text;
 -(NSString*) textAndReturnError:(NSError**)error;
 -(void) sendKeys:(NSString*)keyString;
--(void) sendKeys:(NSString*)keyString error:(NSError**)error;
+-(NSDictionary *) sendKeys:(NSString*)keyString error:(NSError**)error;
 -(NSString*) tagName;
 -(NSString*) tagNameAndReturnError:(NSError**)error;
 -(void) clear;
--(void) clearAndReturnError:(NSError**)error;
+-(BOOL) clearAndReturnError:(NSError**)error;
 -(BOOL) isSelected;
 -(BOOL) isSelectedAndReturnError:(NSError**)error;
 -(BOOL) isEnabled;
